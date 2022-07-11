@@ -1,8 +1,5 @@
 import apiRequests
 import streamlit as st
-import json
-from collections import namedtuple
-from json import JSONEncoder
 
 st.set_page_config(
     page_title="Formula 1 Calendar",
@@ -11,10 +8,15 @@ st.set_page_config(
 )
 
 racesJson = apiRequests.getF1Calendar()
-
 racesList = racesJson.MRData.RaceTable.Races
 
+nextRace = 4;
+
+#Find next race
 for race in racesList:
-    st.text(race.round)
-    time = race.date + ' ' + race.time
-    st.text(time)
+    if (True):
+        print(race.round)
+
+for race in racesList:
+    if (int(race.round) == nextRace):
+        st.text(race.date)
