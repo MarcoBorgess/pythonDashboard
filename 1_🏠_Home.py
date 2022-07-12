@@ -1,8 +1,3 @@
-import streamlit as st
+import globalFunctions
 
-st.set_page_config(
-    page_title="Home",
-    page_icon="house",
-    layout="wide", 
-)
-
+globalFunctions.setConfig()
