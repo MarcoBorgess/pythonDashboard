@@ -1,5 +1,6 @@
 import apiRequests
 import datetime
+import math
 
 def getRaces():
     racesJson = apiRequests.getF1Calendar()
@@ -34,13 +35,29 @@ def formatDateTime(date, time):
 def getNextRace():
     racesList = getRaces()
     class Race:
-        def __init__(self, name, circuit, url, mainRaceTime):
+        def __init__(self, name, circuit, url, mainRaceTime, timeUntil):
             self.name = name
             self.circuit = circuit
             self.url = url
             self.mainRaceTime = mainRaceTime
+            self.timeUntil = timeUntil
     
     for race in racesList:
         if (race.round == getNextRound(racesList)):
-            nextRace = Race(race.raceName, race.Circuit.circuitName, race.url, formatDateTime(race.date, race.time))
+            nextRace = Race(race.raceName, race.Circuit.circuitName, race.url, formatDateTime(race.date, race.time), getTimeUntil(race.date, race.time))
             return nextRace
+
+def getTimeUntil(date, time):
+    completeDate = date + ' ' + time
+    completeDate = datetime.datetime.fromisoformat(completeDate.replace('Z', '.000000'))
+    now = datetime.datetime.utcnow()
+    
+    distance = completeDate - now
+
+    days = distance.days
+    hours = math.floor(distance.seconds / 60 / 60)
+    minutes = math.floor((distance.seconds / 60)-(hours * 60))
+
+    dateString = f'{days}d {hours}h {minutes}m'
+
+    return dateString

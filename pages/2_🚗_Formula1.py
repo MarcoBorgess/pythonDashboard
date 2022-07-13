@@ -10,9 +10,9 @@ nextRace = f1.getNextRace()
 
 headerMd = f"""
     # <a href="{nextRace.url}" style="text-decoration: none; color: white">{nextRace.name}</a>
-    
+    Starting in {nextRace.timeUntil}
 """
-
+# Title and Update Button
 header, update = st.columns([9, 1.5])
 
 with header:
@@ -29,3 +29,5 @@ with update:
         newUpdateButton = updateContainer.button(text)
         sleep(3)
         updateContainer.empty()
+
+st.text(f'in {nextRace.timeUntil}')
