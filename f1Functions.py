@@ -5,11 +5,31 @@ import math
 def getRaces():
     racesJson = apiRequests.getF1Calendar()
     return racesJson.MRData.RaceTable.Races
-
-def getNextRound(racesList):
+        
+def getNextRace():    
+    class Race:
+        def __init__(self, name, circuit, url, mainRaceTime, timeUntil):
+            self.name = name
+            self.circuit = circuit
+            self.url = url
+            self.mainRaceTime = mainRaceTime
+            self.timeUntil = timeUntil
+    
+    raceList = getRaces()
+    
+    for r in raceList:
+        if (r.round == getNextRound(raceList)):
+            return Race(r.raceName, 
+                        r.Circuit.circuitName, 
+                        r.url, 
+                        formatDateTime(r.date, r.time), 
+                        getTimeUntil(r.date, r.time)
+                    )
+            
+def getNextRound(raceList):
     nextRound = 0;
     today = datetime.datetime.utcnow()
-    for race in racesList:
+    for race in raceList:
         dateTime = race.date + ' ' + race.time
         raceDateTime = datetime.datetime.fromisoformat(dateTime.replace('Z', '.000000'))
         if (today < raceDateTime):
@@ -31,21 +51,6 @@ def formatDateTime(date, time):
     newDate = f'{day} de {month} às {hour}:{minutes}h'
     
     return newDate
-        
-def getNextRace():
-    racesList = getRaces()
-    class Race:
-        def __init__(self, name, circuit, url, mainRaceTime, timeUntil):
-            self.name = name
-            self.circuit = circuit
-            self.url = url
-            self.mainRaceTime = mainRaceTime
-            self.timeUntil = timeUntil
-    
-    for race in racesList:
-        if (race.round == getNextRound(racesList)):
-            nextRace = Race(race.raceName, race.Circuit.circuitName, race.url, formatDateTime(race.date, race.time), getTimeUntil(race.date, race.time))
-            return nextRace
 
 def getTimeUntil(date, time):
     completeDate = date + ' ' + time
