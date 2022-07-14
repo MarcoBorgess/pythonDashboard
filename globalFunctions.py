@@ -16,7 +16,6 @@ def setConfig():
         }
         [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
             width: 150px;
-            margin-left: -50px;
         }
         </style>
         """,
