@@ -10,7 +10,7 @@ globalController.setConfig()
 updateButton = st.button("Update F1")
 placeholder = st.empty()
 if updateButton:
-    text = api.updateF1Calendar()
+    text = f'Calendar: {api.updateF1Calendar()}\nDriver Standings: {api.updateDriverStanding()}'
     placeholder.text(text)
     sleep(3)
     placeholder.empty()

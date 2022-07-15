@@ -4,7 +4,7 @@ def getF1Card(afterRaces):
     auxCard = f""" """
 
     for race in afterRaces:
-        auxCard += f""" <div class="col-lg-4 pl-0">
+        auxCard += f""" <div class="col-lg-3 pl-0">
                             <div class="card-49 card-margin">
                                 <div class="card-body">
                                     <div class="widget-49">

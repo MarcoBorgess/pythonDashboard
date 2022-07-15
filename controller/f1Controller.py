@@ -78,7 +78,6 @@ def getNextRace():
             race.addEvent(qualy)
             race.addEvent(mainRace)
             race.events.sort(key=lambda event: event.getDateTime())
-            race.events.insert(0, race.events.pop())
 
             return race
 
@@ -90,6 +89,9 @@ def getAfterRaces():
             self.time = time
             self.date = date
             self.circuitName = circuitName
+            
+        def __repr__(self) -> str:
+            return f'{self.name} - {self.circuitName}'
 
         def getDateTime(self):
             return getDateTimeType(self.date, self.time)
@@ -114,7 +116,6 @@ def getAfterRaces():
             afterRaces.append(Race(r.raceName, r.round, r.time, r.date, r.Circuit.circuitName))
     
     return afterRaces
-
             
 def getNextRound(raceList):
     nextRound = 0;
@@ -159,3 +160,23 @@ def getTimeUntil(date, time):
     dateString = f'{days}d {hours}h {minutes}m'
 
     return dateString
+
+def getDriverStandings():
+    driverStanding = f1Requests.getDriverStanding()
+    driverStanding = driverStanding.MRData.StandingsTable.StandingsLists[0].DriverStandings
+    
+    drivers = []
+             
+    for driver in driverStanding:
+        drivers.append(
+            {
+                "Driver": f'{driver.Driver.givenName} {driver.Driver.familyName}',
+                "Points": driver.points,
+                "Wins": driver.wins,
+                "Position": driver.position,
+                "Constructor": driver.Constructors[0].name,
+                "Nationality": driver.Driver.nationality
+            }
+        )
+        
+    return drivers

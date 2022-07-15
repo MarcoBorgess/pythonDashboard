@@ -4,46 +4,25 @@ def getEventCard(events):
     auxCard = f""" """
 
     for event in events:
-        if (event.name != 'Race'):
-            auxCard += f""" <div class="col-lg-3 pl-0">
-                                <div class="card-49 card-margin">
-                                    <div class="card-body">
-                                        <div class="widget-49">
-                                            <div class="widget-49-title-wrapper">
-                                                <div class="widget-49-date-success">
-                                                    <span class="widget-49-date-day">{event.getDayOfWeek()}</span>
-                                                </div>
-                                                <div class="widget-49-meeting-info">
-                                                    <span class="widget-49-pro-title">{event.name}</span>
-                                                    <span class="widget-49-meeting-time">{event.getFormatedDateTime()}</span>
-                                                    <span class="widget-49-meeting-time">{event.getTimeUntil()}</span>
-                                                </div>
+        auxCard += f""" <div class="col-lg-2 pl-0">
+                            <div class="card-49 card-margin">
+                                <div class="card-body">
+                                    <div class="widget-49">
+                                        <div class="widget-49-title-wrapper">
+                                            <div class="widget-49-date-success">
+                                                <span class="widget-49-date-day">{event.getDayOfWeek()}</span>
+                                            </div>
+                                            <div class="widget-49-meeting-info">
+                                                <span class="widget-49-pro-title">{event.name}</span>
+                                                <span class="widget-49-meeting-time">{event.getFormatedDateTime()}</span>
+                                                <span class="widget-49-meeting-time">{event.getTimeUntil()}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-            """
-        else:
-            auxCard += f""" <div class="col-lg-12 pl-0">
-                                <div class="card-49 card-margin">
-                                    <div class="card-body">
-                                        <div class="widget-49">
-                                            <div class="widget-49-title-wrapper">
-                                                <div class="widget-49-date-success">
-                                                    <span class="widget-49-date-day">{event.getDayOfWeek()}</span>
-                                                </div>
-                                                <div class="widget-49-meeting-info">
-                                                    <span class="widget-49-pro-title">{event.name}</span>
-                                                    <span class="widget-49-meeting-time">{event.getFormatedDateTime()}</span>
-                                                    <span class="widget-49-meeting-time">{event.getTimeUntil()}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-            """
+                        </div>
+        """
         
     card = f"""
     <head>
