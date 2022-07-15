@@ -15,10 +15,10 @@ def getNextRace():
             self.round = round
             self.time = time
             self.date = date
-            self.event = []
+            self.events = []
         
         def addEvent(self, event):
-            self.event.append(event)
+            self.events.append(event)
 
         def getDateTime(self):
             return getDateTimeType(self.date, self.time)
@@ -28,6 +28,9 @@ def getNextRace():
         
         def getTimeUntil(self):
             return getTimeUntil(self.date, self.time)
+
+        def getDayOfWeek(self):
+            return getDateTimeType(self.date, self.time).strftime('%a').capitalize()
         
     class Event:
         def __init__(self, name, date, time):
@@ -43,6 +46,9 @@ def getNextRace():
         
         def getTimeUntil(self):
             return getTimeUntil(self.date, self.time)
+
+        def getDayOfWeek(self):
+            return getDateTimeType(self.date, self.time).strftime('%a').capitalize()
     
     raceList = getRaces()
     
@@ -71,9 +77,44 @@ def getNextRace():
             race.addEvent(p2)
             race.addEvent(qualy)
             race.addEvent(mainRace)
-            race.event.sort(key=lambda event: event.getDateTime())
+            race.events.sort(key=lambda event: event.getDateTime())
+            race.events.insert(0, race.events.pop())
 
             return race
+
+def getAfterRaces():
+    class Race:
+        def __init__(self, name, round, time, date, circuitName):
+            self.name = name
+            self.round = round
+            self.time = time
+            self.date = date
+            self.circuitName = circuitName
+
+        def getDateTime(self):
+            return getDateTimeType(self.date, self.time)
+
+        def getFormatedDateTime(self):
+            return formatDateTime(self.date, self.time)
+        
+        def getTimeUntil(self):
+            return getTimeUntil(self.date, self.time)
+
+        def getDay(self):
+            return getDateTimeType(self.date, self.time).day
+
+        def getMonth(self):
+            return getDateTimeType(self.date, self.time).strftime('%b').capitalize()
+    
+    racesList = getRaces()
+    afterRaces = []
+
+    for r in racesList:
+        if (int(r.round) > int(getNextRound(racesList))):
+            afterRaces.append(Race(r.raceName, r.round, r.time, r.date, r.Circuit.circuitName))
+    
+    return afterRaces
+
             
 def getNextRound(raceList):
     nextRound = 0;
@@ -101,7 +142,7 @@ def formatDateTime(date, time):
     #UTC-3
     hour = str(int(auxHour)-3)
 
-    newDate = f'{day} de {month} às {hour}:{minutes}h'
+    newDate = f'{day} de {month} - {hour}:{minutes}h'
     
     return newDate
 

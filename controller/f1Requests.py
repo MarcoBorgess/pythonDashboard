@@ -1,3 +1,4 @@
+from encodings.utf_8 import encode
 import requests
 import json
 import os
@@ -6,7 +7,7 @@ from types import SimpleNamespace
 
 def getF1Calendar():
     try:
-        with open('apiResults/f1Calendar.json') as jsonFile:
+        with open('apiResults/f1Calendar.json', encoding='utf-8') as jsonFile:
             data = json.load(jsonFile, object_hook=lambda d: SimpleNamespace(**d))
         return data
     except:
