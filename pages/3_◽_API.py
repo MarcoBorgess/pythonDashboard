@@ -1,10 +1,10 @@
-import globalFunctions
+import controller.globalController as globalController
 import streamlit as st
-import apiRequests as api
+import controller.f1Requests as api
 from time import sleep
 
 
-globalFunctions.setConfig()
+globalController.setConfig()
 
 # UpdateButton
 updateButton = st.button("Update F1")

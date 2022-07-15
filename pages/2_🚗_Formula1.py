@@ -1,9 +1,9 @@
 import streamlit as st
-import f1Functions as f1
-import globalFunctions
+import controller.f1Controller as f1
+import controller.globalController as globalController
 from widgets import f1CardWidget
 
-globalFunctions.setConfig()
+globalController.setConfig()
 
 nextRace = f1.getNextRace()
 
@@ -17,10 +17,23 @@ headerMd = f"""
             margin-bottom: 0!important;
         }}
     </style>
-    🚩 Starting in <strong>{nextRace.timeUntil}</strong> ⬇️
+    🚩 Starting in <strong>{nextRace.getTimeUntil()}</strong> ⬇️
     # <a href="{nextRace.url}" style="text-decoration: none; color: white">{nextRace.name}</a>
 """
 st.markdown(headerMd, unsafe_allow_html=True)
+
+# st.text(nextRace.name)
+# st.text(nextRace.url)
+# st.text(nextRace.round)
+# st.text(nextRace.raceDate)
+# st.text(nextRace.raceTime)
+# st.text('------')
+
+for ev in nextRace.event:
+    st.text(ev.name)
+    st.text(ev.getDateTime())
+    st.text(ev.getFormatedDateTime())
+    st.text('----')
 
 # Next Races
 nextRacesMd = f"""
@@ -35,5 +48,5 @@ nextRacesMd = f"""
     # <a href="" style="text-decoration: none; color: white">Next Races</a>
 """
 st.markdown(nextRacesMd, unsafe_allow_html=True)
-st.markdown(f1CardWidget.getF1Card(nextRace.name, nextRace.mainRaceTime), unsafe_allow_html=True)
+st.markdown(f1CardWidget.getF1Card(nextRace), unsafe_allow_html=True)
 

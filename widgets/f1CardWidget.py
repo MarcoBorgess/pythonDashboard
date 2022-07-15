@@ -1,11 +1,11 @@
 # COLOR PALETTE = https://coolors.co/0e1117-262730-7cea9c-537a5a-1c7c54
 
-def getF1Card(eventTitle, eventStartTime):
+def getF1Card(nextRaces):
 
     racesList = ['French GP', 'German GP', 'Italian GP','French GP', 'German GP', 'Italian GP','French GP', 'German GP', 'Italian GP','French GP', 'German GP', 'Italian GP','French GP', 'German GP', 'Italian GP','French GP', 'German GP', 'Italian GP','French GP', 'German GP', 'Italian GP']
     auxCard = f""" """
     for race in racesList:
-        auxCard += f"""<div class="col-lg-2 pl-0"><div class="card-49 card-margin"><div class="card-body"><div class="widget-49"><div class="widget-49-title-wrapper"><div class="widget-49-date-success"><span class="widget-49-date-day">22</span><span class="widget-49-date-month">apr</span></div><div class="widget-49-meeting-info"><span class="widget-49-pro-title">{race}</span><span class="widget-49-meeting-time">test</span></div></div></div></div></div></div>
+        auxCard += f"""<div class="col-lg-3 pl-0"><div class="card-49 card-margin"><div class="card-body"><div class="widget-49"><div class="widget-49-title-wrapper"><div class="widget-49-date-success"><span class="widget-49-date-day">22</span><span class="widget-49-date-month">apr</span></div><div class="widget-49-meeting-info"><span class="widget-49-pro-title">{race}</span><span class="widget-49-meeting-time">test</span></div></div></div></div></div></div>
         """
         
     card = f"""

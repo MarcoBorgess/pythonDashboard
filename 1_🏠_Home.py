@@ -1,3 +1,3 @@
-import globalFunctions
+import controller.globalController as globalController
 
-globalFunctions.setConfig()
+globalController.setConfig()
