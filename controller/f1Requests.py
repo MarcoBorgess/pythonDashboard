@@ -1,4 +1,3 @@
-from encodings.utf_8 import encode
 import requests
 import json
 import os
