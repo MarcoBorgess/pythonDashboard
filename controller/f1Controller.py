@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 import controller.f1Requests as f1Requests
 import datetime
 import math
