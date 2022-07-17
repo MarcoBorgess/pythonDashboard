@@ -45,7 +45,7 @@ def getDriverStanding():
     
 def updateDriverStanding():
     if os.path.exists("apiResults/f1DriverStandings.json"):
-        os.remove("f1DriverStandings.json")
+        os.remove("apiResults/f1DriverStandings.json")
         try:
             getDriverStanding()
             return("Updated")
