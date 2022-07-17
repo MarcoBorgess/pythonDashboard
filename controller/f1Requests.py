@@ -20,7 +20,7 @@ def getF1Calendar():
 
 def updateF1Calendar():
     if os.path.exists("apiResults/f1Calendar.json"):
-        os.remove("f1Calendar.json")
+        os.remove("apiResults/f1Calendar.json")
         try:
             getF1Calendar()
             return("Updated")
