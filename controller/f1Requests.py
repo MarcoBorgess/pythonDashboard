@@ -43,11 +43,36 @@ def getDriverStanding():
         print('DRIVER STANDINGS UPDATED FROM API')
         return cbData
     
+def getConstructorStanding():
+    try:
+        with open('apiResults/f1ConstructorStandings.json', encoding='utf-8') as jsonFile:
+            data = json.load(jsonFile, object_hook=lambda d: SimpleNamespace(**d))
+        return data
+    except:
+        result = requests.get('https://ergast.com/api/f1/2022/constructorStandings.json')
+        data = result.content
+        with open('apiResults/f1ConstructorStandings.json', 'wb') as f:
+            f.write(data)
+        cbData = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
+        print('CONSTRUCTOR STANDINGS UPDATED FROM API')
+        return cbData
+    
 def updateDriverStanding():
     if os.path.exists("apiResults/f1DriverStandings.json"):
         os.remove("apiResults/f1DriverStandings.json")
         try:
             getDriverStanding()
+            return("Updated")
+        except:
+            return("Couldnt Update")
+    else:
+        return("The file does not exist")
+    
+def updateConstructorStanding():
+    if os.path.exists("apiResults/f1ConstructorStandings.json"):
+        os.remove("apiResults/f1ConstructorStandings.json")
+        try:
+            getConstructorStanding()
             return("Updated")
         except:
             return("Couldnt Update")
