@@ -5,13 +5,13 @@ def insertItem(newItemId, newParams):
     @st.experimental_singleton
     def init_connection():
         return mysql.connector.connect(**st.secrets["mysql"])
-        
-    conn = init_connection()
+
 
     # Perform query.
     # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
     @st.experimental_memo
     def run_query(query):
+        conn = init_connection()
         with conn.cursor() as cur:
             queryString = str(query).replace('{', '').replace('}', '')
             print('QUERY: '+ queryString)
