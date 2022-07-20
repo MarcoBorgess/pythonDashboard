@@ -167,15 +167,21 @@ def getDriverStandings():
     drivers = []
              
     for driver in driverStanding:
-        drivers.append(
-            {
-                "Driver": f'{driver.Driver.givenName} {driver.Driver.familyName}',
-                "Points": driver.points,
-                "Wins": driver.wins,
-                "Position": driver.position,
-                "Constructor": driver.Constructors[0].name,
-                "Nationality": driver.Driver.nationality
-            }
-        )
+        drivers.append([f'{driver.Driver.givenName} {driver.Driver.familyName}',
+                        driver.points,
+                        driver.position])
         
     return drivers
+
+def getConstructorStandings():
+    constructorStanding = f1Requests.getConstructorStanding()
+    constructorStanding = constructorStanding.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+    
+    constructors = []
+             
+    for constructor in constructorStanding:
+        constructors.append([constructor.Constructor.name,
+                        constructor.points,
+                        constructor.position])
+        
+    return constructors
