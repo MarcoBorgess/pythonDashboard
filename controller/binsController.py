@@ -2,7 +2,7 @@ import streamlit as st
 import mysql.connector
 
 def insertItem(newItemId, newParams):
-    @st.experimental_singleton
+    
     def init_connection():
         return mysql.connector.connect(**st.secrets["mysql"])
 
