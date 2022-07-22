@@ -99,27 +99,26 @@ def getStandings():
         </section>""", unsafe_allow_html=True)
         
 def getConstructorBadge(constructorId):
-    match constructorId:
-        case "red_bull":
-            team = "RED"
-        case "ferrari":
-            team = "FER"
-        case "mclaren":
-            team = "MCL"
-        case "mercedes":
-            team = "MER"
-        case "alpine":
-            team = "ALP"
-        case "alfa":
-            team = "ALF"
-        case "haas":
-            team = "HAA"
-        case "alphatauri":
-            team = "ALT"
-        case "aston_martin":
-            team = "AST"
-        case "williams":
-            team = "WIL"
+    if constructorId == "red_bull":
+        team = "RED"
+    elif constructorId == "ferrari":
+        team = "FER"
+    elif constructorId == "mclaren":
+        team = "MCL"
+    elif constructorId == "mercedes":
+        team = "MER"
+    elif constructorId == "alpine":
+        team = "ALP"
+    elif constructorId == "alfa":
+        team = "ALF"
+    elif constructorId == "haas":
+        team = "HAA"
+    elif constructorId == "alphatauri":
+        team = "ALT"
+    elif constructorId == "aston_martin":
+        team = "AST"
+    elif constructorId == "williams":
+        team = "WIL"
     
     constructorBadge = f"""<div class="team-box {team}">{team}</div>"""
     return constructorBadge
