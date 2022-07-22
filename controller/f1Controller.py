@@ -151,6 +151,9 @@ def getTimeUntil(date, time):
     now = datetime.datetime.utcnow()
     
     distance = completeDate - now
+    
+    if distance < 0:
+        return f'Already happened'
 
     days = distance.days
     hours = math.floor(distance.seconds / 60 / 60)
