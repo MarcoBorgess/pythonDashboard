@@ -152,7 +152,7 @@ def getTimeUntil(date, time):
     
     distance = completeDate - now
     
-    if distance < 0:
+    if completeDate < now:
         return f'Already happened'
 
     days = distance.days
