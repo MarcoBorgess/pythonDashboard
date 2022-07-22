@@ -175,9 +175,11 @@ def getDriverStandings():
     drivers = []
              
     for driver in driverStanding:
+        team = driver.Constructors[0].constructorId
         drivers.append([f'{driver.Driver.givenName} {driver.Driver.familyName}',
                         driver.points,
-                        driver.position])
+                        driver.position,
+                        team])
         
     return drivers
 
@@ -190,6 +192,7 @@ def getConstructorStandings():
     for constructor in constructorStanding:
         constructors.append([constructor.Constructor.name,
                         constructor.points,
-                        constructor.position])
+                        constructor.position,
+                        constructor.Constructor.constructorId])
         
     return constructors
