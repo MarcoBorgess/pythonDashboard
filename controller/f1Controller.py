@@ -158,9 +158,14 @@ def getTimeUntil(date, time):
     days = distance.days
     hours = math.floor(distance.seconds / 60 / 60)
     minutes = math.floor((distance.seconds / 60)-(hours * 60))
-
+    
     dateString = f'{days}d {hours}h {minutes}m'
 
+    if days < 1:
+        dateString = f'{hours}h {minutes}m' 
+        if hours < 1:
+            dateString = f'{minutes}m'
+        
     return dateString
 
 def getDriverStandings():
