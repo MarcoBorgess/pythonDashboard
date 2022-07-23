@@ -5,7 +5,7 @@ import streamlit as st
 
 globalController.setConfig()
 
-bits = st.tabs(["Bits"])
+bits, items = st.tabs(["Bits", "Items"])
 
 with bits:
     rank = st.selectbox('Fame Rank', 
