@@ -83,7 +83,7 @@ def getBitsWidget(items, rank):
 
     for item in items:
         if item.idHypixel == 'BOOSTER_COOKIE':
-            auxCard += f""" <div class="col-12 pl-0">
+            auxCard += f""" <div class="col-4 pl-0">
                             <div class="card-49 card-margin">
                                 <div class="card-body">
                                     <div class="widget-49">
@@ -140,7 +140,7 @@ def getBitsWidget(items, rank):
         .container {{
             margin: 0!important;
             padding: 0!important;
-            width: 20%!important;
+            
         }}
 
         .card-49 {{
