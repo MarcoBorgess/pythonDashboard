@@ -83,30 +83,39 @@ def getBitsWidget(items, rank):
 
     for item in items:
         if item.idHypixel == 'BOOSTER_COOKIE':
-            auxCard += f""" <div class="col-4 pl-0">
+            auxCard += f""" <div class="col-12 pl-0">
                             <div class="card-49 card-margin">
                                 <div class="card-body">
                                     <div class="widget-49">
                                         <span class="widget-49-pro-title">● {item.name}</span>
                                         <div class="widget-49-title-wrapper">
-                                            <img src="{item.iconURL}" title="" style="height: 32px;">
-                                            <div>
-                                                <div class="widget-49-meeting-info">
-                                                    <span class="widget-49-bits">🔷 {getBitsByRank(rank)}</span>                                               
-                                                </div>
-                                                <div class="widget-49-meeting-info">
-                                                    <span class="widget-49-meeting-time">🔶 {formatItemPrice(item.buyPrice)}</span>
-                                                </div>
-                                            </div>
-                                            <div class="widget-49-meeting-info">
-                                                <span class="widget-49-meeting-time {style}">{icon} {profit}</span>
-                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td class="first">
+                                                        <img src="{item.iconURL}" title="" style="height: 32px;">
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-49-meeting-info">
+                                                            <span class="widget-49-bits">🔷 {getBitsByRank(rank)}</span>                                               
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-49-meeting-info">
+                                                            <span class="widget-49-meeting-time">🔶 {formatItemPrice(item.buyPrice)}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-49-meeting-info">
+                                                            <span class="widget-49-meeting-time {style}">{icon} {profit}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-            """
+                        </div>"""
             continue
         auxCard += f""" <div class="col-12 pl-0">
                             <div class="card-49 card-margin">
@@ -114,19 +123,33 @@ def getBitsWidget(items, rank):
                                     <div class="widget-49">
                                         <span class="widget-49-pro-title">● {item.name}</span>
                                         <div class="widget-49-title-wrapper">
-                                            <img src="{item.iconURL}" title="{item.coinsPerBit}" style="height: 32px;">
-                                            <div class="widget-49-meeting-info">
-                                                <span class="widget-49-bits">🔷 {item.bits}</span>                                               
-                                            </div>
-                                            <div class="widget-49-meeting-info">
-                                                <span class="widget-49-meeting-time">🔶 {formatItemPrice(item.auctionPrice)}</span>
-                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td class="first">
+                                                        <img src="{item.iconURL}" title="{item.coinsPerBit}" style="height: 32px;">
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-49-meeting-info">
+                                                            <span class="widget-49-bits">🔷 {item.bits}</span>                                               
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-49-meeting-info">
+                                                            <span class="widget-49-meeting-time">🔶 {formatItemPrice(item.auctionPrice)}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-49-meeting-info">
+                                                            <span class="widget-49-meeting-time">📊 {item.coinsPerBit}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-        """
+                        </div>"""
         
     card = f"""
     <head>
@@ -209,7 +232,7 @@ def getBitsWidget(items, rank):
             font-size: 1rem;
         }}
         .stSelectbox {{
-            width: 19%!important;
+            width: 97%!important;
         }}
         .positive {{
             color: #7cea9c!important;
@@ -217,11 +240,24 @@ def getBitsWidget(items, rank):
         .negative {{
             color: #ff5b5b!important;
         }}
+        table {{
+            table-layout: fixed;
+            width: 100%;
+        }}
+        .first {{
+            width: 10%;
+        }}
+        td {{
+            width: 30%;
+        }}
+        tr, td {{
+            border: none!important;
+        }}
+        
     </style>
     <body>
         <div class="container">
-            <div class="">
-                {auxCard}
+            {auxCard}
     </body>
     """
     return card

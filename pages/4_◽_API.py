@@ -44,18 +44,5 @@ def UpdateF1():
         sleep(3)
         placeholder.empty()
 
-# Insert Bins
-def insertBinsPage():
-    itemId = st.text_input('Item ID')
-    params = st.text_input('Parameters')
-    insertButton = st.button("Insert Value")
-    placeholder = st.empty()
-    if insertButton:
-        text = bins.insertItem({itemId}, {params})
-        placeholder.text(text)
-        sleep(3)
-        placeholder.empty()
-
 if check_password():
     UpdateF1()
-    insertBinsPage()
