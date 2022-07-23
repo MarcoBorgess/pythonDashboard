@@ -6,15 +6,11 @@ import streamlit as st
 
 globalController.setConfig()
 
-rows = itemsController.getAllItems()
-text = '# All items:\n'
+rows = itemsController.getBitsItems()
+text = '# Bits items:\n'
 
 # Print results.
-count = 0
 for row in rows:
-    count+=1
-    text += f"""<img src="{row[6]}" style="height: 16px;"> {row[3]} <br>"""
-    if count > 10:
-        break;
+    text += f"""<img src="{row[4]}" style="height: 16px;"> {row[1]} <br>"""
 
 st.markdown(text, unsafe_allow_html=True)
