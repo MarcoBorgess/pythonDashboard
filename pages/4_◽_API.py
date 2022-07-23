@@ -1,7 +1,6 @@
 import controller.globalController as globalController
 import streamlit as st
 import controller.f1Requests as f1api
-import controller.binsController as bins
 from time import sleep
 
 globalController.setConfig()
