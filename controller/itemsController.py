@@ -20,15 +20,7 @@ def getBitsItems():
             FROM item
             LEFT JOIN ah ON ah.idHypixel = item.idHypixel
             LEFT JOIN bz ON bz.idHypixel = item.idHypixel
-            WHERE bits > 0
-            UNION
-            SELECT item.idHypixel, name, rarity, category, iconURL, npcSellPrice, bits, bz, ah, item.updatedOn as itemUpdatedOn,
-                bin, secondBin, ah.updatedOn as ahUpdatedOn,
-                sellPrice, buyPrice, sellVolume, buyVolume, sellMovingWeek, buyMovingWeek, sellOrders, buyOrders, bz.updatedon as bzUpdatedOn
-            FROM item
-            LEFT JOIN ah ON ah.idHypixel = item.idHypixel
-            LEFT JOIN bz ON bz.idHypixel = item.idHypixel
-            WHERE item.idHypixel = 'BOOSTER_COOKIE'
+            WHERE bits > 0 OR item.idHypixel = 'BOOSTER_COOKIE'
         """
     )
     
