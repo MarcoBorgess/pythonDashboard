@@ -1,80 +1,26 @@
 import requests
+import requests_cache
 import json
-import os
+from datetime import timedelta
 from types import SimpleNamespace
 
+requests_cache.install_cache('f1_cache', backend='sqlite', expire_after=timedelta(hours=6))
 
 def getF1Calendar():
-    try:
-        with open('apiResults/f1Calendar.json', encoding='utf-8') as jsonFile:
-            data = json.load(jsonFile, object_hook=lambda d: SimpleNamespace(**d))
-        return data
-    except:
-        result = requests.get('http://ergast.com/api/f1/current.json')
-        data = result.content
-        with open('apiResults/f1Calendar.json', 'wb') as f:
-            f.write(data)
-        cbData = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
-        print('CALENDAR UPDATED FROM API')
-        return cbData
-
-def updateF1Calendar():
-    if os.path.exists("apiResults/f1Calendar.json"):
-        os.remove("apiResults/f1Calendar.json")
-        try:
-            getF1Calendar()
-            return("Updated")
-        except:
-            return("Couldnt Update")
-    else:
-        return("The file does not exist")
+    result = requests.get('https://ergast.com/api/f1/current.json')
+    data = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
+    return data
     
 def getDriverStanding():
-    try:
-        with open('apiResults/f1DriverStandings.json', encoding='utf-8') as jsonFile:
-            data = json.load(jsonFile, object_hook=lambda d: SimpleNamespace(**d))
-        return data
-    except:
-        result = requests.get('https://ergast.com/api/f1/2022/driverStandings.json')
-        data = result.content
-        with open('apiResults/f1DriverStandings.json', 'wb') as f:
-            f.write(data)
-        cbData = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
-        print('DRIVER STANDINGS UPDATED FROM API')
-        return cbData
+    result = requests.get('https://ergast.com/api/f1/2022/driverStandings.json')
+    data = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
+    return data
     
 def getConstructorStanding():
-    try:
-        with open('apiResults/f1ConstructorStandings.json', encoding='utf-8') as jsonFile:
-            data = json.load(jsonFile, object_hook=lambda d: SimpleNamespace(**d))
-        return data
-    except:
-        result = requests.get('https://ergast.com/api/f1/2022/constructorStandings.json')
-        data = result.content
-        with open('apiResults/f1ConstructorStandings.json', 'wb') as f:
-            f.write(data)
-        cbData = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
-        print('CONSTRUCTOR STANDINGS UPDATED FROM API')
-        return cbData
-    
-def updateDriverStanding():
-    if os.path.exists("apiResults/f1DriverStandings.json"):
-        os.remove("apiResults/f1DriverStandings.json")
-        try:
-            getDriverStanding()
-            return("Updated")
-        except:
-            return("Couldnt Update")
-    else:
-        return("The file does not exist")
-    
-def updateConstructorStanding():
-    if os.path.exists("apiResults/f1ConstructorStandings.json"):
-        os.remove("apiResults/f1ConstructorStandings.json")
-        try:
-            getConstructorStanding()
-            return("Updated")
-        except:
-            return("Couldnt Update")
-    else:
-        return("The file does not exist")
+    result = requests.get('https://ergast.com/api/f1/2022/constructorStandings.json')
+    data = json.loads(result.text, object_hook=lambda d: SimpleNamespace(**d))
+    return data
+
+def updateF1():
+    requests_cache.clear()
+    return 'F1 cache updated'

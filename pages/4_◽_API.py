@@ -38,8 +38,7 @@ def UpdateF1():
     updateButton = st.button("Update F1")
     placeholder = st.empty()
     if updateButton:
-        text = f'Calendar: {f1api.updateF1Calendar()}\nDriver Standings: {f1api.updateDriverStanding()}'
-        placeholder.text(text)
+        placeholder.text(f1api.updateF1())
         sleep(3)
         placeholder.empty()
 

@@ -2,8 +2,8 @@ import streamlit as st
 
 def setConfig():
     st.set_page_config(
-        page_title="Formula 1",
-        page_icon="car",
+        page_title="Marco",
+        page_icon="house",
         layout="wide", 
     )
 

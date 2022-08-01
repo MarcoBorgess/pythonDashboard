@@ -5,7 +5,7 @@ import streamlit as st
 
 globalController.setConfig()
 
-bits, kat, forge = st.columns(3)
+bits, forge, kat = st.columns(3)
 
 with bits:
     st.title('Bits')
@@ -15,7 +15,16 @@ with bits:
                 )
     bitsItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
     st.markdown(bitsItems, unsafe_allow_html=True)
-    
+
+with forge:
+    st.title('Forge')
+    # rank = st.selectbox('HOTM Level', 
+    #             ['1', '2', '3', '4', '5', '6', '7'],
+    #             5
+    #             )
+    # forgeItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
+    # st.markdown(forgeItems, unsafe_allow_html=True)
+
 with kat:
     st.title('Kat')
     # rank = st.selectbox('Taming Level', 
@@ -25,11 +34,3 @@ with kat:
     # katItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
     # st.markdown(katItems, unsafe_allow_html=True)
     
-with forge:
-    st.title('Forge')
-    # rank = st.selectbox('HOTM Level', 
-    #             ['Settler', 'Citizen', 'Contributor', 'Philanthropist', 'Patron', 'Famous Player', 'Attaché', 'Ambassador', 'Stateperson', 'Senator', 'Dignitary', 'Councilor', 'Minister', 'Premier', 'Chancellor', 'Supreme'],
-    #             5
-    #             )
-    # forgeItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
-    # st.markdown(forgeItems, unsafe_allow_html=True)
