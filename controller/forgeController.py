@@ -9,7 +9,7 @@ def getForgeItems():
         item['ingredientsInfo'] = updateIngredients(item, items)
         item['cost'] = getItemCost(item)
         item['profit'] = item.afterTax - item.cost
-        item['profitPerHour'] = int(item.profit / item.duration)
+        item['profitPerHour'] = int(item.profit / item.duration) ##ARRUMAR ISSO
     
     itemsSorted = sorted(items, key=lambda d: d.profitPerHour, reverse=True) 
     return itemsSorted
