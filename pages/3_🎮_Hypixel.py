@@ -1,4 +1,4 @@
-from controller import globalController, bitsController
+from controller import globalController, bitsController, forgeController
 from widgets import bitsItemsWidget
 import streamlit as st
 
@@ -24,6 +24,9 @@ with forge:
     #             )
     # forgeItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
     # st.markdown(forgeItems, unsafe_allow_html=True)
+    forgeItems = forgeController.getForgeItems()
+    for item in forgeItems:
+        st.write(item)
 
 with kat:
     st.title('Kat')
