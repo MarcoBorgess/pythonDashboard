@@ -3,48 +3,48 @@ from controllers import items
 def getForgeItems():
     forgeItems = items.getForgeItems()
     
-    for item in forgeItems:
-        item['auctionPrice'] = getAuctionPrice(item)
-        item['afterTax'] = subTractAhTax(item.auctionPrice)
-        item['ingredientsInfo'] = updateIngredients(item, forgeItems)
-        item['cost'] = getItemCost(item)
-        item['profit'] = getItemProfit(item)
-        item['profitPerHour'] = getProfitPerHour(item)
+    for forgeItem in forgeItems:
+        forgeItem['auctionPrice'] = getAuctionPrice(forgeItem)
+        forgeItem['afterTax'] = subTractAhTax(forgeItem.auctionPrice)
+        forgeItem['ingredientsInfo'] = updateIngredients(forgeItem, forgeItems)
+        forgeItem['cost'] = getItemCost(forgeItem)
+        forgeItem['profit'] = getItemProfit(forgeItem)
+        forgeItem['profitPerHour'] = getProfitPerHour(forgeItem)
     
     itemsSorted = sorted(forgeItems, key=lambda d: d.profitPerHour, reverse=True) 
     return itemsSorted
 
-def getItemProfit(item):
-    if (item.cost is None or item.afterTax is None):
+def getItemProfit(forgeItem):
+    if (forgeItem.cost is None or forgeItem.afterTax is None):
         return None
 
-    profit = item.afterTax - item.cost
+    profit = forgeItem.afterTax - forgeItem.cost
     return profit
 
-def getProfitPerHour(item):
-    if (item.profit is None or item.duration is None):
+def getProfitPerHour(forgeItem):
+    if (forgeItem.profit is None or forgeItem.duration is None):
         return 0
 
-    profitPerHour = item.profit / (item.duration.total_seconds() / 3600)
+    profitPerHour = forgeItem.profit / (forgeItem.duration.total_seconds() / 3600)
     return int(profitPerHour)
 
-def getItemCost(item):
-    if (item.ingredientsInfo is None):
+def getItemCost(forgeItem):
+    if (forgeItem.ingredientsInfo is None):
         return None
 
     cost = 0
 
-    for ingredient in item.ingredientsInfo:
+    for ingredient in forgeItem.ingredientsInfo:
         if (ingredient.price is not None and ingredient.quantity is not None):
             cost += ingredient.price * ingredient.quantity
     
     return cost
 
-def updateIngredients(item, items):
-    if item.ingredients is None:
+def updateIngredients(forgeItem, forgeItems):
+    if forgeItem.ingredients is None:
         return None
 
-    ingredients = eval(item.ingredients)
+    ingredients = eval(forgeItem.ingredients)
 
     ingredientsUpdated = []
 
@@ -52,50 +52,50 @@ def updateIngredients(item, items):
         row = {}
         row['idHypixel'] = ingredient[0]
         row['quantity'] = ingredient[1]
-        row['name'] = getIngredientName(ingredient[0], items)
-        row['iconURL'] = getIngredientIconURL(ingredient[0], items)
-        row['price'] = getIngredientPrice(ingredient[0], items)
-        row = items.dotdict(row)
+        row['name'] = getIngredientName(ingredient[0], forgeItems)
+        row['iconURL'] = getIngredientIconURL(ingredient[0], forgeItems)
+        row['price'] = getIngredientPrice(ingredient[0], forgeItems)
+        row = forgeItems.dotdict(row)
         ingredientsUpdated.append(row)
 
     return ingredientsUpdated
 
-def getIngredientPrice(idHypixel, items):
-    for item in items:
-        if item.idHypixel == "COINS":
+def getIngredientPrice(idHypixel, forgeItems):
+    for forgeItem in forgeItems:
+        if forgeItem.idHypixel == "COINS":
             return 1
-        if item.idHypixel == idHypixel:
-            if item.ah:
-                return item.secondBin
-            elif item.bz:
-                return item.buyPrice
+        if forgeItem.idHypixel == idHypixel:
+            if forgeItem.ah:
+                return forgeItem.secondBin
+            elif forgeItem.bz:
+                return forgeItem.buyPrice
     
     return None
 
-def getIngredientIconURL(idHypixel, items):
-    for item in items:
-        if item.idHypixel == idHypixel:
-            return item.iconURL
+def getIngredientIconURL(idHypixel, forgeItems):
+    for forgeItem in forgeItems:
+        if forgeItem.idHypixel == idHypixel:
+            return forgeItem.iconURL
 
     return None
 
-def getIngredientName(idHypixel, items):
-    for item in items:
-        if item.idHypixel == idHypixel:
-            return item.name
+def getIngredientName(idHypixel, forgeItems):
+    for forgeItem in forgeItems:
+        if forgeItem.idHypixel == idHypixel:
+            return forgeItem.name
     
     return None
 
-def getAuctionPrice(item):
+def getAuctionPrice(forgeItem):
     auctionPrice = 0
 
-    if item.ah:
-        auctionPrice = item.bin
-    elif item.bz:
-        auctionPrice = item.sellPrice
+    if forgeItem.ah:
+        auctionPrice = forgeItem.bin
+    elif forgeItem.bz:
+        auctionPrice = forgeItem.sellPrice
 
-    if item.npcSellPrice > auctionPrice:
-        auctionPrice = item.npcSellPrice
+    if forgeItem.npcSellPrice > auctionPrice:
+        auctionPrice = forgeItem.npcSellPrice
 
     return auctionPrice
 
