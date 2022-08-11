@@ -23,9 +23,9 @@ with forgeCol:
     #             )
     # forgeItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
     # st.markdown(forgeItems, unsafe_allow_html=True)
-    forgeItems = forge.getForgeItems()
-    for item in forgeItems:
-        st.write(item)
+    forgeItems = forge.getSortedForgeItems()
+    for forgeItem in forgeItems:
+        st.write(forgeItem)
 
 with katCol:
     st.title('Kat')

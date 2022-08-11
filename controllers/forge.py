@@ -1,6 +1,6 @@
 from controllers import items
 
-def getForgeItems():
+def getSortedForgeItems():
     forgeItems = items.getForgeItems()
     
     for forgeItem in forgeItems:
@@ -55,7 +55,7 @@ def updateIngredients(forgeItem, forgeItems):
         row['name'] = getIngredientName(ingredient[0], forgeItems)
         row['iconURL'] = getIngredientIconURL(ingredient[0], forgeItems)
         row['price'] = getIngredientPrice(ingredient[0], forgeItems)
-        row = forgeItems.dotdict(row)
+        row = items.dotdict(row)
         ingredientsUpdated.append(row)
 
     return ingredientsUpdated
