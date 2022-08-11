@@ -1,9 +1,9 @@
-import controller.f1Requests as f1Requests
+import controllers.f1API as f1API
 import datetime
 import math
 
 def getRaces():
-    racesJson = f1Requests.getF1Calendar()
+    racesJson = f1API.getF1Calendar()
     return racesJson.MRData.RaceTable.Races
         
 def getNextRace():    
@@ -169,7 +169,7 @@ def getTimeUntil(date, time):
     return dateString
 
 def getDriverStandings():
-    driverStanding = f1Requests.getDriverStanding()
+    driverStanding = f1API.getDriverStanding()
     driverStanding = driverStanding.MRData.StandingsTable.StandingsLists[0].DriverStandings
     
     drivers = []
@@ -184,7 +184,7 @@ def getDriverStandings():
     return drivers
 
 def getConstructorStandings():
-    constructorStanding = f1Requests.getConstructorStanding()
+    constructorStanding = f1API.getConstructorStanding()
     constructorStanding = constructorStanding.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
     
     constructors = []

@@ -1,9 +1,8 @@
 import  streamlit as st
-import controllers.f1Controller as f1
 
 def getStandings(driverStandings, constructorStandings):
     drivers, constructors = st.columns(2)
-    
+
     allDrivers = f""""""
 
     for driver in driverStandings:
