@@ -1,18 +1,17 @@
-from controller import itemsController
-import datetime
+from controllers import items
 
 def getForgeItems():
-    items = itemsController.getForgeItems()
+    forgeItems = items.getForgeItems()
     
-    for item in items:
+    for item in forgeItems:
         item['auctionPrice'] = getAuctionPrice(item)
         item['afterTax'] = subTractAhTax(item.auctionPrice)
-        item['ingredientsInfo'] = updateIngredients(item, items)
+        item['ingredientsInfo'] = updateIngredients(item, forgeItems)
         item['cost'] = getItemCost(item)
         item['profit'] = getItemProfit(item)
         item['profitPerHour'] = getProfitPerHour(item)
     
-    itemsSorted = sorted(items, key=lambda d: d.profitPerHour, reverse=True) 
+    itemsSorted = sorted(forgeItems, key=lambda d: d.profitPerHour, reverse=True) 
     return itemsSorted
 
 def getItemProfit(item):
@@ -56,7 +55,7 @@ def updateIngredients(item, items):
         row['name'] = getIngredientName(ingredient[0], items)
         row['iconURL'] = getIngredientIconURL(ingredient[0], items)
         row['price'] = getIngredientPrice(ingredient[0], items)
-        row = itemsController.dotdict(row)
+        row = items.dotdict(row)
         ingredientsUpdated.append(row)
 
     return ingredientsUpdated

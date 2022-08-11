@@ -1,6 +1,4 @@
-import controller.globalController as globalController
 import streamlit as st
+from views import defaultStyle
 
-globalController.setConfig()
-
-st.checkbox('Checkbox')
+defaultStyle.setConfig()

@@ -1,10 +1,8 @@
-import pandas as pd
 import streamlit as st
-import controller.f1Controller as f1
-import controller.globalController as globalController
-from widgets import f1NextRacesCardWidget, f1NextEventsCardWidget, f1StandingsWidget
+from controllers import f1
+from views import f1RacesList, f1EventsList, f1Standings, defaultStyle
 
-globalController.setConfig()
+defaultStyle.setConfig()
 
 nextRace = f1.getNextRace()
 afterRaces = f1.getAfterRaces()
@@ -23,7 +21,7 @@ headerMd = f"""
     # <a href="{nextRace.url}" style="text-decoration: none; color: white">{nextRace.name}</a>
 """
 st.markdown(headerMd, unsafe_allow_html=True)
-st.markdown(f1NextEventsCardWidget.getEventCard(nextRace.events), unsafe_allow_html=True)
+st.markdown(f1EventsList.getEventCard(nextRace.events), unsafe_allow_html=True)
 
 futureRaces, standings = st.tabs(["Next Races", "Standings"])
 
@@ -41,7 +39,9 @@ with standings:
         # <a href="#" style="text-decoration: none; color: white">Standings</a>
     """
     st.markdown(standingsMd, unsafe_allow_html=True)
-    f1StandingsWidget.getStandings()
+    driverStandings = f1.getDriverStandings()
+    constructorStandings = f1.getConstructorStandings()
+    f1Standings.getStandings(driverStandings, constructorStandings)
 
 # Next Races
 with futureRaces:
@@ -57,5 +57,5 @@ with futureRaces:
         # <a href="#" style="text-decoration: none; color: white">Next Races</a>
     """
     st.markdown(nextRacesMd, unsafe_allow_html=True)
-    st.markdown(f1NextRacesCardWidget.getF1Card(afterRaces), unsafe_allow_html=True)
+    st.markdown(f1RacesList.getF1Card(afterRaces), unsafe_allow_html=True)
 

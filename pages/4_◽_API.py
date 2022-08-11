@@ -1,9 +1,9 @@
-import controller.globalController as globalController
 import streamlit as st
-import controller.f1Requests as f1api
+from controllers import f1API
+from views import defaultStyle
 from time import sleep
 
-globalController.setConfig()
+defaultStyle.setConfig()
 
 def check_password():
     """Returns `True` if the user had the correct password."""
@@ -38,7 +38,7 @@ def UpdateF1():
     updateButton = st.button("Update F1")
     placeholder = st.empty()
     if updateButton:
-        placeholder.text(f1api.updateF1())
+        placeholder.text(f1API.updateF1())
         sleep(3)
         placeholder.empty()
 

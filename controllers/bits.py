@@ -1,10 +1,9 @@
-import streamlit as st
-from controller import itemsController
+from controllers import items
 
 def getBitsItems():
-    items = itemsController.getBitsItems()
+    bitsItems = items.getBitsItems()
     
-    for item in items:
+    for item in bitsItems:
         if item.idHypixel == 'BOOSTER_COOKIE':
             item['auctionPrice'] = 0
             item['afterTax'] = 0
@@ -18,7 +17,7 @@ def getBitsItems():
         item['afterTax'] = afterTax
         item['coinsPerBit'] = int(coinsPerBit)
     
-    itemsSorted = sorted(items, key=lambda d: d.coinsPerBit, reverse=True) 
+    itemsSorted = sorted(bitsItems, key=lambda d: d.coinsPerBit, reverse=True) 
     return itemsSorted
         
 def subTractAhTax(sellPrice):
