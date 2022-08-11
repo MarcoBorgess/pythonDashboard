@@ -1,4 +1,5 @@
 from controller import itemsController
+import datetime
 
 def getForgeItems():
     items = itemsController.getForgeItems()
@@ -8,21 +9,42 @@ def getForgeItems():
         item['afterTax'] = subTractAhTax(item.auctionPrice)
         item['ingredientsInfo'] = updateIngredients(item, items)
         item['cost'] = getItemCost(item)
-        item['profit'] = item.afterTax - item.cost
-        item['profitPerHour'] = int(item.profit / item.duration) ##ARRUMAR ISSO
+        item['profit'] = getItemProfit(item)
+        item['profitPerHour'] = getProfitPerHour(item)
     
     itemsSorted = sorted(items, key=lambda d: d.profitPerHour, reverse=True) 
     return itemsSorted
 
+def getItemProfit(item):
+    if (item.cost is None or item.afterTax is None):
+        return None
+
+    profit = item.afterTax - item.cost
+    return profit
+
+def getProfitPerHour(item):
+    if (item.profit is None or item.duration is None):
+        return 0
+
+    profitPerHour = item.profit / (item.duration.total_seconds() / 3600)
+    return int(profitPerHour)
+
 def getItemCost(item):
+    if (item.ingredientsInfo is None):
+        return None
+
     cost = 0
 
     for ingredient in item.ingredientsInfo:
-        cost += ingredient.price * ingredient.quantity
+        if (ingredient.price is not None and ingredient.quantity is not None):
+            cost += ingredient.price * ingredient.quantity
     
     return cost
 
 def updateIngredients(item, items):
+    if item.ingredients is None:
+        return None
+
     ingredients = eval(item.ingredients)
 
     ingredientsUpdated = []
@@ -41,9 +63,11 @@ def updateIngredients(item, items):
 
 def getIngredientPrice(idHypixel, items):
     for item in items:
+        if item.idHypixel == "COINS":
+            return 1
         if item.idHypixel == idHypixel:
             if item.ah:
-                return item.bin
+                return item.secondBin
             elif item.bz:
                 return item.buyPrice
     
