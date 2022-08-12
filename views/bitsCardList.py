@@ -1,5 +1,5 @@
 def formatItemPrice(price):
-    formatedPrice = ''
+    formatedPrice = '0'
     if price > 1000 and price < 1000000:
         formatedPrice = '{:,.0f}'.format(price/1000) + 'k'
     elif price >= 1000000:
@@ -69,7 +69,7 @@ def calculateProfit(items, bitsByRank):
         
     return profit, negative
 
-def getBitsWidget(items, rank):
+def getBitsCardList(items, rank):
     auxCard = f""" """
     style = 'positive'
     icon = '📈'
@@ -83,156 +83,70 @@ def getBitsWidget(items, rank):
 
     for item in items:
         if item.idHypixel == 'BOOSTER_COOKIE':
-            auxCard += f""" <div class="col-12 pl-0">
-                            <div class="card-49 card-margin">
-                                <div class="card-body">
-                                    <div class="widget-49">
-                                        <span class="widget-49-pro-title">● {item.name}</span>
-                                        <div class="widget-49-title-wrapper">
-                                            <table>
-                                                <tr>
-                                                    <td class="first">
-                                                        <img src="{item.iconURL}" title="" style="height: 32px;">
-                                                    </td>
-                                                    <td>
-                                                        <div class="widget-49-meeting-info">
-                                                            <span class="widget-49-bits">🔷 {getBitsByRank(rank)}</span>                                               
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="widget-49-meeting-info">
-                                                            <span class="widget-49-meeting-time">🔶 {formatItemPrice(item.buyPrice)}</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="widget-49-meeting-info">
-                                                            <span class="widget-49-meeting-time {style}">{icon} {profit}</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>"""
+            auxCard += f"""<div class="bits-card">
+                <span class="item-name">● {item.name}</span>
+                <table class="item-info">
+                    <tr>
+                        <td class="icon">
+                            <img src="{item.iconURL}" title="{item.coinsPerBit}" height="32">
+                        </td>
+                        <td>
+                            <span class="bits">🔷 {getBitsByRank(rank)}</span>
+                        </td>
+                        <td>
+                            <span class="value">🔶 {formatItemPrice(item.buyPrice)}</span>
+                        </td>
+                        <td>
+                            <span class="coins {style}">{icon} {profit}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>"""
             continue
-        auxCard += f""" <div class="col-12 pl-0">
-                            <div class="card-49 card-margin">
-                                <div class="card-body">
-                                    <div class="widget-49">
-                                        <span class="widget-49-pro-title">● {item.name}</span>
-                                        <div class="widget-49-title-wrapper">
-                                            <table>
-                                                <tr>
-                                                    <td class="first">
-                                                        <img src="{item.iconURL}" title="{item.coinsPerBit}" style="height: 32px;">
-                                                    </td>
-                                                    <td>
-                                                        <div class="widget-49-meeting-info">
-                                                            <span class="widget-49-bits">🔷 {item.bits}</span>                                               
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="widget-49-meeting-info">
-                                                            <span class="widget-49-meeting-time">🔶 {formatItemPrice(item.auctionPrice)}</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="widget-49-meeting-info">
-                                                            <span class="widget-49-meeting-time">📊 {item.coinsPerBit}</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>"""
+        auxCard += f"""<div class="bits-card">
+                <span class="item-name">● {item.name}</span>
+                <table class="item-info">
+                    <tr>
+                        <td class="icon">
+                            <img src="{item.iconURL}" title="{item.coinsPerBit}" height="32">
+                        </td>
+                        <td class="bits-cell">
+                            <span class="bits">🔷 {item.bits}</span>
+                        </td>
+                        <td class="bits-cell">
+                            <span class="value">🔶 {formatItemPrice(item.auctionPrice)}</span>
+                        </td>
+                        <td class="bits-cell">
+                            <span class="coins">📊 {item.coinsPerBit}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>"""
         
     card = f"""
-    <head>
-        <meta charset="UTF-8">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
     <style>
         .container {{
             margin: 0!important;
             padding: 0!important;
-            
         }}
-
-        .card-49 {{
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            min-width: 0;
-            word-wrap: break-word;
+        .bits-card {{
+            color: #fafafa;
+            line-height: 1;
             background-color: #262730;
-            background-clip: border-box;
             border: 1px solid #0e1117;
             border-radius: 8px;
-            margin: 0 0 20px;
+            padding: 20px;
+            margin-bottom: 1rem;
         }}
-
-        .widget-49 .widget-49-title-wrapper {{
-            display: flex;
-            align-items: center;
-            padding-top: 1vh;
-        }}
-
-        .widget-49 .widget-49-title-wrapper .widget-49-date-success {{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background-color: #7cea9c;
-            border-radius: 50%;
-        }}
-
-        .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-day {{
-            color: #1c7c54;
-            font-weight: 900;
-            font-size: 1.5rem;
-            line-height: 1;
-        }}
-
-        .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-month {{
-            color: #1c7c54;
-            line-height: 1;
-            font-size: 1rem;
-            font-weight: 500;
-            text-transform: uppercase;
-        }}
-
-        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info {{
-            display: flex;
-            flex-direction: column;
-            margin-left: 1rem;
-        }}
-
-        .widget-49 .widget-49-pro-title {{
-            color: #fafafa;
+        .item-name {{
             font-size: 1rem;
             font-weight: 700;
-            overflow: hidden;
         }}
-
-        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-bits {{
+        .item-info {{
+            margin-top: 0.5rem;
+        }}
+        .bits {{
             color: rgb(85, 255, 255);
-            font-size: 1rem;
-        }}
-        
-        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {{
-            color: #fafafa;
-            font-size: 1rem;
-        }}
-        .stSelectbox {{
-            width: 97%!important;
         }}
         .positive {{
             color: #7cea9c!important;
@@ -241,17 +155,17 @@ def getBitsWidget(items, rank):
             color: #ff5b5b!important;
         }}
         table {{
-            table-layout: fixed;
+            table-layout: fixed!important;
             width: 100%;
-        }}
-        .first {{
-            width: 10%;
-        }}
-        td {{
-            width: 30%;
         }}
         tr, td {{
             border: none!important;
+        }}
+        .bits-cell {{
+            widht: 28%;
+        }}
+        .icon {{
+            width: 16%;
         }}
         
     </style>

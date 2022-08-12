@@ -10,13 +10,35 @@ def getSortedForgeItems():
         forgeItem['cost'] = getItemCost(forgeItem)
         forgeItem['profit'] = getItemProfit(forgeItem)
         forgeItem['profitPerHour'] = getProfitPerHour(forgeItem)
+        forgeItem['formatedDuration'] = getFormatedDuration(forgeItem)
     
     itemsSorted = sorted(forgeItems, key=lambda d: d.profitPerHour, reverse=True) 
     return itemsSorted
 
+def getFormatedDuration(forgeItem):
+    if (forgeItem.duration is None):
+        return 0
+
+    formatedDuration = ''
+    tdelta = forgeItem.duration
+    days = tdelta.days
+    hours, rem = divmod(tdelta.seconds, 3600)
+    minutes, seconds = divmod(rem, 60)
+    
+    if days > 0:
+        formatedDuration += str(days) + "d "
+    if hours > 0:
+        formatedDuration += str(hours) + "h "
+    if minutes > 0:
+        formatedDuration += str(minutes) + "m "
+    if seconds > 0:
+        formatedDuration += str(seconds) + "s "
+
+    return formatedDuration
+
 def getItemProfit(forgeItem):
     if (forgeItem.cost is None or forgeItem.afterTax is None):
-        return None
+        return 0
 
     profit = forgeItem.afterTax - forgeItem.cost
     return profit
@@ -55,6 +77,7 @@ def updateIngredients(forgeItem, forgeItems):
         row['name'] = getIngredientName(ingredient[0], forgeItems)
         row['iconURL'] = getIngredientIconURL(ingredient[0], forgeItems)
         row['price'] = getIngredientPrice(ingredient[0], forgeItems)
+        row['total'] = row['price'] * row['quantity']
         row = items.dotdict(row)
         ingredientsUpdated.append(row)
 
