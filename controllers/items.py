@@ -69,7 +69,7 @@ def getBitsItems():
 def getForgeItemsAndIngredientsIds():
     data = run_query(
         """
-            SELECT idHypixel, ingredients FROM forge WHERE active = 1
+            SELECT idHypixel, ingredients, active FROM forge
         """
     )
 
@@ -78,13 +78,13 @@ def getForgeItemsAndIngredientsIds():
     for item in data:
         idHypixel = item[0]
         ingredients = eval(item[1])
-
-        itemsIdHypixel.append(idHypixel)
-        
-        for ingredient in ingredients:
-            ingredientIdHypixel = ingredient[0]
-            if ingredientIdHypixel not in itemsIdHypixel:
-                itemsIdHypixel.append(ingredientIdHypixel)
+        if (item[2] == 1):
+            itemsIdHypixel.append(idHypixel)
+            for ingredient in ingredients:
+                ingredientIdHypixel = ingredient[0]
+                if ingredientIdHypixel not in itemsIdHypixel:
+                    
+                    itemsIdHypixel.append(ingredientIdHypixel)
 
     return itemsIdHypixel
 
@@ -164,6 +164,7 @@ def getForgeItemsIds():
     return itemsSorted
 
 def updateForgeItemActive(idHypixel, active):
+
     query = """
         UPDATE forge
         SET active = {}
@@ -173,3 +174,4 @@ def updateForgeItemActive(idHypixel, active):
     rows = run_update_query(query)
     if rows > 0:
         return True
+    
