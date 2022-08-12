@@ -15,6 +15,13 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
+def run_update_query(query):
+    conn = init_connection()
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
+        return cur.rowcount
+
 def getBitsItems():
     data = run_query(
         """
@@ -59,7 +66,7 @@ def getBitsItems():
         
     return dicts
 
-def getAllForgeItemsIds():
+def getForgeItemsAndIngredientsIds():
     data = run_query(
         """
             SELECT idHypixel, ingredients FROM forge WHERE active = 1
@@ -82,7 +89,7 @@ def getAllForgeItemsIds():
     return itemsIdHypixel
 
 def getForgeItems():
-    idsHypixel = getAllForgeItemsIds()
+    idsHypixel = getForgeItemsAndIngredientsIds()
     idsHypixel = tuple(idsHypixel)
 
     data = run_query(
@@ -132,3 +139,37 @@ def getForgeItems():
         items.append(row)
         
     return items
+
+def getForgeItemsIds():
+    data = run_query(
+        """
+            SELECT name, iconURL, active, forge.idHypixel
+            FROM forge
+            INNER JOIN item ON item.idHypixel = forge.idHypixel
+        """
+    )
+    
+    items = []
+    
+    for item in data:
+        row = {}
+        row['name'] = item[0]
+        row['iconURL'] = item[1]
+        row['active'] = item[2]
+        row['idHypixel'] = item[3]
+        row = dotdict(row)
+        items.append(row)
+    
+    itemsSorted = sorted(items, key=lambda d: d.active, reverse=True)
+    return itemsSorted
+
+def updateForgeItemActive(idHypixel, active):
+    query = """
+        UPDATE forge
+        SET active = {}
+        WHERE idHypixel = '{}'
+    """.format(active, idHypixel)
+    
+    rows = run_update_query(query)
+    if rows > 0:
+        return True

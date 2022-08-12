@@ -1,5 +1,5 @@
 def formatItemPrice(price):
-    formatedPrice = str(price)
+    formatedPrice = str('{:,.2f}'.format(price))
 
     isNegative = False
     if price < 0:
@@ -7,7 +7,7 @@ def formatItemPrice(price):
         isNegative = True
 
     if price > 1000 and price < 1000000:
-        formatedPrice = '{:,.0f}'.format(price/1000) + 'k'
+        formatedPrice = '{:,.2f}'.format(price/1000) + 'k'
     elif price >= 1000000:
         formatedPrice = '{:,.2f}'.format(price/1000000) + 'm'
     elif price >= 1000000000:
@@ -36,38 +36,45 @@ def getForgeCardList(items, hotm):
                         <img src="{ingredient.iconURL}" alt="{ingredient.name}" height="24" class="ingredient-icon">
                     </td>
                     <td>
-                        <span>{ingredient.quantity}x {ingredient.name}</span>
+                        <span>{ingredient.name}</span>
                     </td>
                     <td>
-                        <span>🔵 {formatItemPrice(ingredient.price)}</span>
+                        <span title="Cost">🔵 {formatItemPrice(ingredient.price)}</span>
                     </td>
                     <td>
-                        <span>🟣 {formatItemPrice(ingredient.total)}</span>
+                        <span title="Quantity">🟠 {ingredient.quantity}</span>
+                    </td>
+                    <td>
+                        <span title="Total">🟣 {formatItemPrice(ingredient.total)}</span>
+                    </td>
+                    <td>
+                        <span title="5x Total">🟤 {formatItemPrice(ingredient.total*5)}</span>
+                    </td>
                 </tr>"""
             auxCard += f"""<div class="forge-card">
                 <span class="item-duration">{item.formatedDuration}</span>
                 <table class="item-info">
-                    <tr>
+                    <tr class="spaceUnder">
                         <td class="td-icon">
                             <img src="{item.iconURL}" title="{item.name}" height="32">
                         </td>
                         <td>
                             <span class="item-name"> {item.name}</span>
                         </td>
-                        <td class="forge-cell">
+                        <td>
                             <span class="price" title="Cost">🔵 {formatItemPrice(item.cost)}</span>
                         </td>
-                        <td class="forge-cell">
-                            <span class="price" title="Sell Price">🟣 {formatItemPrice(item.auctionPrice)}</span>
+                        <td>
+                            <span class="price" title="Sell Price">🟠 {formatItemPrice(item.auctionPrice)}</span>
                         </td>
-                    </tr>
-                    {ingCard}
-                    <tr>
-                        <td colspan ="4">
+                        <td>
                             <span title="Profit">{getIconByPrice(item.profit)} {formatItemPrice(item.profit)}</span>
+                        </td>
+                        <td>
                             <span title="Profit per Hour">⏲️ {formatItemPrice(item.profitPerHour)}</span>
                         </td>
                     </tr>
+                    {ingCard}
                 </table>
             </div>"""
         
@@ -99,7 +106,10 @@ def getForgeCardList(items, hotm):
             padding: 5px 0 5px 0;
         }}
         .ingredient-icon {{
-            margin-left: 30%;
+            margin-left: 50%;
+        }}
+        tr.spaceUnder>td {{
+            padding-bottom: 1em;
         }}
     </style>
     <body>

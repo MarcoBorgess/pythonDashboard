@@ -85,15 +85,13 @@ def updateIngredients(forgeItem, forgeItems):
 
 def getIngredientPrice(idHypixel, forgeItems):
     for forgeItem in forgeItems:
-        if forgeItem.idHypixel == "COINS":
-            return 1
         if forgeItem.idHypixel == idHypixel:
             if forgeItem.ah:
                 return forgeItem.secondBin
             elif forgeItem.bz:
                 return forgeItem.buyPrice
     
-    return None
+    return 1
 
 def getIngredientIconURL(idHypixel, forgeItems):
     for forgeItem in forgeItems:

@@ -1,5 +1,5 @@
 import streamlit as st
-from controllers import f1API
+from controllers import f1API, items
 from views import defaultStyle
 from time import sleep
 
@@ -41,6 +41,37 @@ def UpdateF1():
         placeholder.text(f1API.updateF1())
         sleep(3)
         placeholder.empty()
-
+        
+def UpdateForge():
+    forgeItems = items.getForgeItemsIds()
+    st.text("🟢 -> Ativado | 🔴 -> Desativado")
+    
+    def formatName(forgeItem):
+        if (forgeItem.active == 1):
+            return f'🟢 {forgeItem.name}'
+    
+        return f'🔴 {forgeItem.name}'
+    
+    formatedList = [formatName(forgeItem) for forgeItem in forgeItems]
+    
+    selectedItem = st.selectbox("Select an item", formatedList, 0)
+    if (selectedItem.startswith("🟢")):
+        desativar = st.button("❌ Desativar")
+        if (desativar):
+            success = items.updateForgeItemActive(forgeItems[formatedList.index(selectedItem)]['idHypixel'], 0)
+            if (success):
+                st.success("Item desativado!")
+                sleep(1)
+                st.experimental_rerun()
+    else:
+        ativar = st.button("✔️ Ativar")
+        if (ativar):
+            success = items.updateForgeItemActive(forgeItems[formatedList.index(selectedItem)]['idHypixel'], 1)
+            if (success):
+                st.success("Item ativado!")
+                sleep(1)
+                st.experimental_rerun()
+   
 if check_password():
     UpdateF1()
+    UpdateForge()
