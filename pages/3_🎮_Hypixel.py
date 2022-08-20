@@ -4,33 +4,34 @@ from views import bitsCardList, defaultStyle, forgeCardList
 
 defaultStyle.setConfig()
 
-# bitsCol, forgeCol, katCol = st.columns(3)
-bitsCol, forgeCol = st.columns([1, 2])
+bitsTitleCol, forgeTitleCol = st.columns([1, 2])
 
-with bitsCol:
-    st.title('Bits')
+with bitsTitleCol:
+    st.title("Bits")
+    
+with forgeTitleCol:
+    st.title("Forge")
+    
+bitsSelectCol, forgeSelectHotmCol, forgeSelectCostCol = st.columns([1, 1, 1])
+
+with bitsSelectCol:
     rank = st.selectbox('Fame Rank', 
-                ['New Player', 'Settler', 'Citizen', 'Contributor', 'Philanthropist', 'Patron', 'Famous Player', 'Attaché', 'Ambassador', 'Stateperson', 'Senator', 'Dignitary', 'Councilor', 'Minister', 'Premier', 'Chancellor', 'Supreme'],
-                5
-                )
+        ['New Player', 'Settler', 'Citizen', 'Contributor', 'Philanthropist', 'Patron', 'Famous Player', 'Attaché', 'Ambassador', 'Stateperson', 'Senator', 'Dignitary', 'Councilor', 'Minister', 'Premier', 'Chancellor', 'Supreme'],
+        5
+    )
+    
+with forgeSelectHotmCol:
+    hotm = st.selectbox('HOTM Level', ['1', '2', '3', '4', '5', '6', '7'], 5)
+    
+with forgeSelectCostCol:
+    maxCost = st.selectbox('Max Item Cost', ['1M', '10M', '100M'], 1)
+    
+bitsItemsCol, forgeItemsCol = st.columns([1, 2])
+
+with bitsItemsCol:
     bitsItems = bitsCardList.getBitsCardList(bits.getBitsItems(), rank)
     st.markdown(bitsItems, unsafe_allow_html=True)
 
-with forgeCol:
-    st.title('Forge')
-    hotm = st.selectbox('HOTM Level', 
-                ['1', '2', '3', '4', '5', '6', '7'],
-                5
-                )
-    forgeItems = forgeCardList.getForgeCardList(forge.getSortedForgeItems(), hotm)
+with forgeItemsCol:
+    forgeItems = forgeCardList.getForgeCardList(forge.getSortedForgeItems(), hotm, maxCost)
     st.markdown(forgeItems, unsafe_allow_html=True)
-
-# with katCol:
-#     st.title('Kat')
-    # rank = st.selectbox('Taming Level', 
-    #             ['New Player', 'Citizen', 'Contributor', 'Philanthropist', 'Patron', 'Famous Player', 'Attaché', 'Ambassador', 'Stateperson', 'Senator', 'Dignitary', 'Councilor', 'Minister', 'Premier', 'Chancellor', 'Supreme'],
-    #             5
-    #             )
-    # katItems = bitsItemsWidget.getBitsWidget(bitsController.getBitsItems(), rank)
-    # st.markdown(katItems, unsafe_allow_html=True)
-    
