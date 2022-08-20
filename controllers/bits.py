@@ -10,7 +10,7 @@ def getBitsItems():
             item['coinsPerBit'] = 69420
             continue
         auctionPrice = item.bin if item.bin is not None else item.buyPrice
-        afterTax = subTractAhTax(auctionPrice)
+        afterTax = subTractAhTax(auctionPrice) if item.ah else auctionPrice*0.99
         coinsPerBit = afterTax / item.bits
         
         item['auctionPrice'] = int(auctionPrice)
