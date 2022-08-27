@@ -48,19 +48,21 @@ def getBitsByRank(rank):
 
 def calculateProfit(items, bitsByRank):
     profit = 0
-    coinsPerBit = 0
-    buy = 0
     negative = False
-    firstFiveItems = items[0:6]
-    for item in firstFiveItems:
-        if (item.bits < 1):
-            buy = item.buyPrice
-            continue
-        coinsPerBit += int(item.coinsPerBit)
-        
-    coinsPerBit = int(coinsPerBit/5)
-    sell = coinsPerBit * bitsByRank
-    profit = sell - buy
+    
+    itemsFiltered = [item for item in items if item.idHypixel != 'BOOSTER_COOKIE' and item.bits >= 1000]
+    itemsFiltered.sort(key=lambda x: x.coinsPerBit, reverse=True)
+    itemsFiltered = itemsFiltered[0:5]
+    
+    boosterCookiePrice = [item for item in items if item.idHypixel == 'BOOSTER_COOKIE'][0].buyPrice
+    
+    for item in itemsFiltered:
+        profit += item.coinsPerBit
+    
+    profit = profit / 5
+    profit = profit * bitsByRank
+    profit = profit - boosterCookiePrice
+    
     if (profit < 0):
         profit = formatItemPrice(profit*-1)
         negative = True
