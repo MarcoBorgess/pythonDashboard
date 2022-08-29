@@ -60,7 +60,7 @@ def getForgeCardList(items, hotm, maxCost):
                 <table class="item-info">
                     <tr class="spaceUnder">
                         <td class="td-icon">
-                            <img src="{item.iconURL}" title="{item.name}" height="32">
+                            <img src="{item.iconURL}" height="32">
                         </td>
                         <td>
                             <span class="item-name"> {item.name}</span>

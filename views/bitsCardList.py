@@ -90,7 +90,7 @@ def getBitsCardList(items, rank):
                 <table class="item-info">
                     <tr>
                         <td class="icon">
-                            <img src="{item.iconURL}" title="{item.coinsPerBit}" height="32">
+                            <img src="{item.iconURL}" height="32">
                         </td>
                         <td>
                             <span class="bits">🔷 {getBitsByRank(rank)}</span>
@@ -110,7 +110,7 @@ def getBitsCardList(items, rank):
                 <table class="item-info">
                     <tr>
                         <td class="icon">
-                            <img src="{item.iconURL}" title="{item.coinsPerBit}" height="32">
+                            <img src="{item.iconURL}" height="32">
                         </td>
                         <td class="bits-cell">
                             <span class="bits">🔷 {item.bits}</span>
