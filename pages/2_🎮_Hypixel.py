@@ -1,8 +1,6 @@
 import streamlit as st
 from controllers import bits, forge
-from views import bitsCardList, defaultStyle, forgeCardList
-
-defaultStyle.setConfig()
+from views import bitsCardList, forgeCardList
 
 bitsTitleCol, forgeTitleCol = st.columns([1, 2])
 

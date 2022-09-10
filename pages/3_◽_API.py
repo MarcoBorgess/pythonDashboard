@@ -1,9 +1,6 @@
 import streamlit as st
 from controllers import f1API, items
-from views import defaultStyle
 from time import sleep
-
-defaultStyle.setConfig()
 
 def check_password():
     """Returns `True` if the user had the correct password."""

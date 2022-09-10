@@ -1,8 +1,6 @@
 import streamlit as st
 from controllers import f1
-from views import f1RacesList, f1EventsList, f1Standings, defaultStyle
-
-defaultStyle.setConfig()
+from views import f1RacesList, f1EventsList, f1Standings
 
 nextRace = f1.getNextRace()
 afterRaces = f1.getAfterRaces()
