@@ -2,6 +2,8 @@ import streamlit as st
 from controllers import f1API, items
 from time import sleep
 
+st.set_page_config(layout="wide")
+
 def check_password():
     """Returns `True` if the user had the correct password."""
 

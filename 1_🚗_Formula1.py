@@ -2,6 +2,8 @@ import streamlit as st
 from controllers import f1
 from views import f1RacesList, f1EventsList, f1Standings
 
+st.set_page_config(layout="wide")
+
 nextRace = f1.getNextRace()
 afterRaces = f1.getAfterRaces()
 

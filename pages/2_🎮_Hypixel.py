@@ -2,6 +2,8 @@ import streamlit as st
 from controllers import bits, forge
 from views import bitsCardList, forgeCardList
 
+st.set_page_config(layout="wide")
+
 bitsTitleCol, forgeTitleCol = st.columns([1, 2])
 
 with bitsTitleCol:
